@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container">
+    <h1 class="mt-4">Report</h1>
+
+    {% set ns = namespace(current_task='None', current_project='None') %}
+    {% for task_id, project_id, assignee, total_objects, total_attributes in results %}
+        {% if task_id != ns.current_task or project_id != ns.current_project %}
+            {% if ns.current_task != 'None' and ns.current_project != 'None' %}
+                </table>
+                <br>
+            {% endif %}
+            <h2>Task ID: {{ task_id or 'None' }}, Project ID: {{ project_id or 'None' }}</h2>
+            <table class="table">
+                <thead class="thead-light">
+                    <tr>
+                        <th>Assignee</th>
+                        <th>Total Objects</th>
+                        <th>Total Attributes</th>
+                    </tr>
+                </thead>
+            {% set ns.current_task = task_id %}
+            {% set ns.current_project = project_id %}
+        {% endif %}
+        <tr>
+            <td>{{ assignee }}</td>
+            <td>{{ total_objects }}</td>
+            <td>{{ total_attributes }}</td>
+        </tr>
+        {% if loop.last %}
+            </table>
+        {% endif %}
+    {% endfor %}
+</div>
+
+       
+{% endblock %}

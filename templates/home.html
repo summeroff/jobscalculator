@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+<form method="POST">
+    <div class="form-group">
+        <label for="jobs">Paste Jobs</label>
+        <textarea class="form-control" id="jobs" name="jobs" rows="10" cols="50"></textarea>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+{% endblock %}
